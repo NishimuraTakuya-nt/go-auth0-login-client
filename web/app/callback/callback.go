@@ -8,7 +8,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 
-	"01-Login/platform/authenticator"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/platform/authenticator"
 )
 
 // Handler for our callback.
@@ -20,11 +20,20 @@ func Handler(auth *authenticator.Authenticator) gin.HandlerFunc {
 			return
 		}
 		// FIXME //////////////////////////////////////////////////////////////////////
+
+		codeVerifier, ok := session.Get("code_verifier").(string)
+		if !ok {
+			ctx.String(http.StatusBadRequest, "Missing code verifier.")
+			return
+		}
+
 		// Call token exchange service
 		tokenExchangeReq := struct {
-			Code string `json:"code"`
+			Code         string `json:"code"`
+			CodeVerifier string `json:"codeVerifier"`
 		}{
-			Code: ctx.Query("code"),
+			Code:         ctx.Query("code"),
+			CodeVerifier: codeVerifier,
 		}
 
 		jsonData, err := json.Marshal(tokenExchangeReq)
@@ -34,7 +43,7 @@ func Handler(auth *authenticator.Authenticator) gin.HandlerFunc {
 		}
 
 		resp, err := http.Post(
-			"http://localhost:8082/api/v1/auth/token-exchange",
+			"http://localhost:8082/api/v1/auth/sessions",
 			"application/json",
 			bytes.NewBuffer(jsonData),
 		)
@@ -74,18 +83,18 @@ func Handler(auth *authenticator.Authenticator) gin.HandlerFunc {
 		//	return
 		//}
 		//
-		//var profile map[string]interface{}
+		var profile map[string]interface{}
 		//if err := idToken.Claims(&profile); err != nil {
 		//	ctx.String(http.StatusInternalServerError, err.Error())
 		//	return
 		//}
 
 		//session.Set("access_token", token.AccessToken)
-		//session.Set("profile", profile) // FIXME: もともとのコード
-		//if err := session.Save(); err != nil {
-		//	ctx.String(http.StatusInternalServerError, err.Error())
-		//	return
-		//}
+		session.Set("profile", profile) // FIXME: もともとのコード
+		if err := session.Save(); err != nil {
+			ctx.String(http.StatusInternalServerError, err.Error())
+			return
+		}
 
 		// Redirect to logged in page.
 		ctx.Redirect(http.StatusTemporaryRedirect, "/user")

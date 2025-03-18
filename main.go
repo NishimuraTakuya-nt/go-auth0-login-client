@@ -6,8 +6,8 @@ import (
 
 	"github.com/joho/godotenv"
 
-	"01-Login/platform/authenticator"
-	"01-Login/platform/router"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/platform/authenticator"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/platform/router"
 )
 
 func main() {

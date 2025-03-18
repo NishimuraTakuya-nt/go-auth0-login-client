@@ -7,13 +7,13 @@ import (
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 
-	"01-Login/platform/authenticator"
-	"01-Login/platform/middleware"
-	"01-Login/web/app/callback"
-	"01-Login/web/app/home"
-	"01-Login/web/app/login"
-	"01-Login/web/app/logout"
-	"01-Login/web/app/user"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/platform/authenticator"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/platform/middleware"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/web/app/callback"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/web/app/home"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/web/app/login"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/web/app/logout"
+	"github.com/NishimuraTakuya-nt/go-auth0-login-client/web/app/user"
 )
 
 // New registers the routes and returns the router.

@@ -1,4 +1,4 @@
-module 01-Login
+module github.com/NishimuraTakuya-nt/go-auth0-login-client
 
 go 1.19
 
