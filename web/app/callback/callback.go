@@ -44,6 +44,7 @@ func Handler(auth *authenticator.Authenticator) gin.HandlerFunc {
 
 		resp, err := http.Post(
 			"http://localhost:8082/api/v1/auth/sessions",
+			//"https://ops-api.dev-sqg.net/api/v1/auth/sessions", // dev
 			"application/json",
 			bytes.NewBuffer(jsonData),
 		)
