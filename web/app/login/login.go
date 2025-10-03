@@ -50,6 +50,9 @@ func Handler(auth *authenticator.Authenticator) gin.HandlerFunc {
 				oauth2.SetAuthURLParam("audience", audience),
 				oauth2.SetAuthURLParam("code_challenge", codeChallenge),
 				oauth2.SetAuthURLParam("code_challenge_method", "S256"),
+				// ↓ 招待メールより取得した招待チケットID、組織IDをベタ書きで招待認証を実験
+				//oauth2.SetAuthURLParam("organization", "org_hcRYuClV825ONonF"),
+				//oauth2.SetAuthURLParam("invitation", "baqI94oZFrLBC49rIzyEAwkn7Q2Hsy8o"),
 			),
 		)
 	}
